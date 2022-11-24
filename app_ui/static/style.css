@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Work+Sans:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap");
 
 :root {
 	--header-font: "Work Sans", sans-serif;
 	--body-font: "Open Sans", sans-serif;
+	--mono-font: "Ubuntu Mono";
 	--secondary: #3d3d3d;
 	--secondary-hover: #5d5d5d;
 	/* color for when the primary color is selected */

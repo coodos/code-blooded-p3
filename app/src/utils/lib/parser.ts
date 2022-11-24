@@ -15,7 +15,9 @@ function singleLevelParser(src: Record<string, any>, fragment: IParseFragment) {
                 ? IfThenElse(src, fragment, path)
                 : null;
         } else if (path.startsWith(".")) {
+            console.log(path);
             const val = getValueAtPath(src, path);
+            console.log(val);
             if (Number(val)) {
                 temp += Number(val);
             } else {

@@ -2,6 +2,7 @@
     import { Button, FileInput } from '$lib/components/ui'
 	import axios from 'axios';
     import { JSONEditor } from 'svelte-jsoneditor'
+	import { expandSelection } from 'svelte-jsoneditor/logic/selection';
     let content = {
        text: "{}" 
     };
@@ -9,7 +10,14 @@
     let mapFile: FileList;
     let srcFile: FileList;
     
+    let jsonView: JSONEditor;
     let progress: number;
+
+    function ExpandJson(content: any) {
+        jsonView && jsonView.expand((e) => true) 
+    }
+
+    $: ExpandJson(content)
 
     const submitFile = async(file: File) => {
 
@@ -63,10 +71,16 @@
             </section>
 
             <Button onClick={submitHandler} size={'large'} label="Get target JSON!" />
+        
+            <div class="instructions">
+                <p>Welcome to this JSON Transformer, this JSON Transformer accepts a mapping following the mentioned formatting guidelines, the parser itself stands modular and extendable to account for more features and function processing to be added on top</p>
+                <p> - It accepts a CSV with the keys, "No., Target, Source, Enumeration", where "No." is the serial number, "Target" is the desired name of the field to be added to the output, "Source" is the key construct that can be used to extract the value from the input JSON, and "Enumeration" is an additional Key-Value map to aid the construction of the desired keys</p>
+                <p>- it can parse certain functions like "IF", "ELSE", "THEN" and "ENUM" with further capability to be scaled extensively</p>
+            </div>
         </form>
 
     <div class="jsonView jse-theme-dark">
-        <JSONEditor bind:content />
+        <JSONEditor bind:this={jsonView} expand={(e) => true} bind:content />
     </div>
 </div>
 
@@ -119,5 +133,19 @@
         border-radius: 1rem;
         overflow: hidden;
         box-shadow: 0 0 1rem var(--backdrop);
+    }
+
+    .instructions {
+        margin-top: 30px;
+        font-family: var(--mono-font);
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        color: #3d3d3d;
+        background-color: rgb(255, 255, 196);
+    }
+
+    .instructions p {
+        font-size: 1.2rem;
     }
 </style>
