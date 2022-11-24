@@ -1,8 +1,8 @@
 <script lang="ts">
-	let files: any;
+	export let files: FileList; 
 </script>
 
-<input class="fileInput" type="file" bind:files>
+<input class="fileInput" type="file" bind:files={files}>
 
 {#if files && files[0]}
 	<p>

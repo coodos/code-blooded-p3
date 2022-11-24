@@ -15,22 +15,19 @@ const storage = multer.diskStorage({
     },
 });
 
-function ensureIsSupported(file: any, cb: any) {
-    const fileTypes = /csv|json/;
-    const extname = fileTypes.test(
-        path.extname(file.originalname).toLowerCase()
-    );
-    if (extname) {
-        return cb(null, true);
-    } else {
-        cb("file not supported");
-    }
-}
+// function ensureIsSupported(file: any, cb: any) {
+//     const fileTypes = /csv|json/;
+//     const extname = fileTypes.test(
+//         path.extname(file.originalname).toLowerCase()
+//     );
+//     if (extname) {
+//         return cb(null, true);
+//     } else {
+//         cb("file not supported");
+//     }
+// }
 
 export const upload: any = multer({
     storage,
-    fileFilter: function (req, file, cb) {
-        ensureIsSupported(file, cb);
-    },
     limits: { fileSize: 3 * 1024 * 1024, fieldSize: 3 * 1024 * 1024 },
 });

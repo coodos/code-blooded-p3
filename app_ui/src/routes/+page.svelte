@@ -3,27 +3,37 @@
 	import axios from 'axios';
     import { JSONEditor } from 'svelte-jsoneditor'
     let content = {
-        text: JSON.stringify({
-            array: [1, 2, 3],
-            bool: true,
-            object: {
-            foo: 'bar',
-            },
-        })
+       text: "{}" 
     };
-    
-    let mapFile: any;
-    let sourceFile: any;
 
-    const submitHandler = async() => {
+    let mapFile: FileList;
+    let srcFile: FileList;
+    
+    let progress: number;
+
+    const submitFile = async(file: File) => {
+
         const formData: any = new FormData();
-        formData.append('mapFile', mapFile)
-        formData.append('sourceFile', sourceFile)
-        const { data } = await axios.post('localhost:3000/uploads', formData, {
+        formData.append('file', file)
+        const { data } = await axios.post('http://localhost:3000/api/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-          }})
+            }, 
+            onUploadProgress: (data: any) => {
+            progress = Math.round((100 * data.loaded) / data.total);
+         }});
+        return data;
           
+    }
+
+    const submitHandler= async() => {
+        const map = await submitFile(mapFile[0]);
+        const src = await submitFile(srcFile[0]);
+        const { data } = await axios.post("http://localhost:3000/api/transform-json", {
+            src: src.filename,
+            map: map.filename 
+        });
+        content = {text: JSON.stringify(data) };
     }
 </script>
 
@@ -41,7 +51,7 @@
                 <h2>
                     Enter Mapping:
                 </h2>
-                <FileInput bind:value={mapFile} />
+                <FileInput bind:files={mapFile} />
 
             </section>
 
@@ -49,7 +59,7 @@
                 <h2>
                     Enter Source JSON:
                 </h2>
-                <FileInput bind:value={sourceFile} />
+                <FileInput bind:files={srcFile} />
             </section>
 
             <Button onClick={submitHandler} size={'large'} label="Get target JSON!" />
