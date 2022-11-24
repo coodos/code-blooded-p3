@@ -4,6 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev:server": "yarn --cwd=./app dev",
+    "dev:client": "yarn --cwd=./app_ui dev",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\""
+  },
   "workspaces": [
     "app",
     "app_ui"
