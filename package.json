@@ -5,8 +5,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "client",
-    "server",
-    "frontend"
+    "app",
+    "app_ui"
   ]
 }
