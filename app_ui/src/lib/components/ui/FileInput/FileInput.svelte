@@ -1,8 +1,16 @@
 <script lang="ts">
+	import { Button } from "$lib/components/ui"
+
 	export let files: FileList; 
+	let inputButton: any;
+
+	const onClick = () => {
+		inputButton.click()
+	}
 </script>
 
-<input class="fileInput" type="file" bind:files={files}>
+<Button variant="secondary" label="Select File" {onClick} />
+<input class="fileInput" type="file" bind:this={inputButton} bind:files={files}>
 
 {#if files && files[0]}
 	<p>
@@ -12,23 +20,11 @@
 
 <style>
 	.fileInput {
-		visibility: hidden;
+		display: none;
 	}
-	.fileInput::before {
-		visibility: visible;
-		display: inline-block;
-		white-space: nowrap;
-		cursor: pointer;
-		background-color: var(--secondary);
-		padding: 8px 16px;
-		color: var(--secondary-alt);
-		border: 0;
-		transition: all 0.5s;
-		border-radius: 5px;
-		font-size: 1rem;
-		outline: none;
-		content: 'Choose File!';
-		transform: translateX(50%);
+	p {
+		margin: 0 0;
+		color: var(--header-bg) ;
 	}
 
 	.fileInput:hover::before {

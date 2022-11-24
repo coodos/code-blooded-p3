@@ -38,8 +38,8 @@
 </script>
 
 <div class="mainContainer">
-    <div class="form">
-        <form>
+
+        <form class="form">
             <h2 class="team-name">
                 The Grind's 
             </h2>
@@ -65,7 +65,6 @@
             <Button onClick={submitHandler} size={'large'} label="Get target JSON!" />
         </form>
 
-    </div>
     <div class="jsonView jse-theme-dark">
         <JSONEditor bind:content />
     </div>
@@ -79,21 +78,17 @@
         height: 100vh;
         cursor: default;
     }
-    .form {
+
+    form {
         width: 40%;
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         padding: 1rem;
         gap: 2rem;
-    }
-
-    form {
         display: flex;
         align-items: center;
         flex-direction: column;
-        gap: 5vh;
     }
 
     h1 {
@@ -111,7 +106,7 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        gap: 5vh;
+        gap: 1rem;
     }
 
     .jsonView {
