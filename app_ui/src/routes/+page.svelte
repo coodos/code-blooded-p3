@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { Button } from '$lib/components/ui'
+    import { Button, FileInput } from '$lib/components/ui'
+	import axios from 'axios';
     import { JSONEditor } from 'svelte-jsoneditor'
-	import FileInput from '$lib/components/ui/FileInput/FileInput.svelte';
     let content = {
         text: JSON.stringify({
             array: [1, 2, 3],
@@ -15,8 +15,15 @@
     let mapFile: any;
     let sourceFile: any;
 
-    const submitHandler = () => {
-        return
+    const submitHandler = async() => {
+        const formData: any = new FormData();
+        formData.append('mapFile', mapFile)
+        formData.append('sourceFile', sourceFile)
+        const { data } = await axios.post('localhost:3000/uploads', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          }})
+          
     }
 </script>
 
