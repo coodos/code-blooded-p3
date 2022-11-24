@@ -28,6 +28,7 @@
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
+    "axios": "^1.2.0",
     "babel-loader": "^8.3.0",
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.3.0",
@@ -46,7 +47,6 @@
   "type": "module",
   "dependencies": {
     "@zerodevx/svelte-json-view": "^0.2.2",
-    "axios": "^1.2.0",
     "svelte-forms": "^2.3.1",
     "svelte-json-tree": "^1.0.0",
     "svelte-jsoneditor": "^0.10.2"
