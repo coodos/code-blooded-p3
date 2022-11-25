@@ -4,6 +4,12 @@ import { comparatorMap } from "./comparator";
 
 const functions = ["ENUM", "IF", "ELSE", "THEN"];
 
+/**
+ * Return true if the encountered keyword is a function recognized by the parser
+ *
+ * @param {string} str
+ * @returns boolean
+ */
 export function isFunction(str: string): boolean {
     let isFunc = false;
     for (const func of functions) {
@@ -12,6 +18,13 @@ export function isFunction(str: string): boolean {
     return isFunc;
 }
 
+/**
+ * Evaluate an ENUM function call
+ *
+ * @param {Record<string, any>} src
+ * @param {string} str
+ * @param {Record<string, any>} enumerable
+ */
 export function Enum(
     src: Record<string, any>,
     str: string,
@@ -23,6 +36,13 @@ export function Enum(
     return enumerable[getValueAtPath(src, path)];
 }
 
+/**
+ * Evaluate an IF, THEN, ELSE expression
+ *
+ * @param {Record<string, any>} src
+ * @param {IParseFragment} fragment
+ * @param {string} str
+ */
 export function IfThenElse(
     src: Record<string, any>,
     fragment: IParseFragment,

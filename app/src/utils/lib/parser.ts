@@ -2,6 +2,13 @@ import { Enum, IfThenElse, isFunction } from "./config/functions";
 import { getValueAtPath, parseEnumerable, splitWithTail } from "./helpers";
 import { IParseFragment } from "./parser.types";
 
+/**
+ * Parse a single level JSON, i.e. one without an iterable that needs to be r
+ * reached
+ *
+ * @param {Record<string, any>} src
+ * @param {IParseFragment} fragment
+ */
 function singleLevelParser(src: Record<string, any>, fragment: IParseFragment) {
     let formatted = "";
     const pathFragments = fragment.srcKey.split("+").map((e) => e.trim());
@@ -35,6 +42,13 @@ function singleLevelParser(src: Record<string, any>, fragment: IParseFragment) {
     return temp > 0 ? temp : formatted;
 }
 
+/**
+ * Multi Level parser, parses and computes for a value which exists within an
+ * iterable, example value nested in array of objects
+ *
+ * @param {Record<string, any>} src
+ * @param {IParseFragment} fragment
+ */
 function multiLevelParser(src: Record<string, any>, fragment: IParseFragment) {
     const values = [];
     const path = `.${
@@ -57,6 +71,12 @@ function multiLevelParser(src: Record<string, any>, fragment: IParseFragment) {
     return values;
 }
 
+/**
+ * Parse a fragment
+ *
+ * @param {IParseFragment} fragment
+ * @param {Record<string, any>}src
+ */
 function parseFragment(fragment: IParseFragment, src: Record<string, any>) {
     const parseAsArray =
         fragment.srcKey.includes(".item") || fragment.dest.includes(".item");
@@ -73,6 +93,12 @@ function parseFragment(fragment: IParseFragment, src: Record<string, any>) {
     return result;
 }
 
+/**
+ * Transform an object to that of the desired map, provided the map and a source
+ *
+ * @param {Record<string, any>} src
+ * @param {string} map
+ */
 export function transformObject(src: Record<string, any>, map: string) {
     let [_, ...lines] = map.split("\n");
     const object = {};
