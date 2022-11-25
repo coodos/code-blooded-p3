@@ -22,7 +22,6 @@ export const transformJson = asyncHandler(
                 )
             ).toString()
         );
-        console.log(src, map);
         res.json(transformObject(src, map));
     }
 );

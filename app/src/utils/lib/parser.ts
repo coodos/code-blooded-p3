@@ -22,9 +22,7 @@ function singleLevelParser(src: Record<string, any>, fragment: IParseFragment) {
                 ? IfThenElse(src, fragment, path)
                 : null;
         } else if (path.startsWith(".")) {
-            console.log(path);
             const val = getValueAtPath(src, path);
-            console.log(val);
             if (Number(val)) {
                 temp += Number(val);
             } else {
@@ -115,7 +113,9 @@ export function transformObject(src: Record<string, any>, map: string) {
     for (const fragment of fragments) {
         const { key, value } = parseFragment(fragment, src);
         // @ts-ignore
-        object[key] = value;
+        object[key]
+            ? (object[key] = [...object[key], ...value])
+            : (object[key] = value);
     }
     return object;
 }
